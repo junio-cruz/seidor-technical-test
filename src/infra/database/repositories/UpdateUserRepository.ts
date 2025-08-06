@@ -13,7 +13,7 @@ export class UpdateUserRepository implements IUpdateUserRepository {
     let response: User | any;
     const databaseSession = databaseInstance.getSession();
     const user_found = databaseSession.find((user) => user.user_id === input.user_id
-        || input.user_id === user.email) as User || null;
+        || input.user_id === user.email || input.user_id === user.auth_token) as User || null;
     if (!user_found){
       return user_found;
     }
@@ -23,8 +23,6 @@ export class UpdateUserRepository implements IUpdateUserRepository {
           response = {
             user_id: input.user_id,
             ...input.to_update,
-            email: user.email,
-            created_at: user.created_at
           }
           return response
         }

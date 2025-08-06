@@ -12,7 +12,6 @@ import { GetUserController } from '../../../presentation/controllers/GetUserCont
 import { ListUsersController } from '../../../presentation/controllers/ListUsersController';
 import { DeleteUserController } from '../../../presentation/controllers/DeleteUserController';
 import { UpdateUserController } from '../../../presentation/controllers/UpdateUserController';
-import { ApproveUserController } from '../../../presentation/controllers/ApproveUserController';
 
 import { ControllerErrorHandlerDecorator } from '../../../presentation/decorators/ControllerErrorHandlerDecorator';
 
@@ -33,10 +32,6 @@ const listUsersController = new ListUsersController(logger);
 const getUserController = new GetUserController(logger);
 const updateUserController = new UpdateUserController(logger);
 const deleteUserController = new DeleteUserController(logger);
-const approveUserController = new ApproveUserController(
-    logger,
-    appConfig,
-);
 
 server.route(
   'post',
@@ -74,12 +69,6 @@ server.route(
     'delete',
     '/users/:user_id',
     new ControllerErrorHandlerDecorator(logger, deleteUserController),
-);
-
-server.route(
-    'post',
-    '/admin/:admin_id/approve/:user_id',
-    new ControllerErrorHandlerDecorator(logger, approveUserController),
 );
 
 export const app = server;

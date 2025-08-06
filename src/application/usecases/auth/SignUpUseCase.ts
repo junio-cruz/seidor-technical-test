@@ -13,6 +13,7 @@ import { UUIDGuidGenerator } from '../../../infra/guidGenerator/UUIDGuidGenerato
 import { IGetUserRepository } from '../../../domain/repositories/IGetUserRepository';
 import { GetUserRepository } from '../../../infra/database/repositories/GetUserRepository';
 import { CreateUserRepository } from '../../../infra/database/repositories/CreateUserRepository';
+import {Logger} from "../../../infra/logger/Logger";
 
 export type SignUpUseCaseInput = {
   name: string;
@@ -31,14 +32,14 @@ export interface ISignUpUseCase {
 
 export class SignUpUseCase implements ISignUpUseCase {
   constructor(
-    private logger: ILogger,
+    private logger: Logger,
     private appConfig: IAppConfig,
     private identityServiceProvider: IISP = new ISP(),
     private guidGenerator: IGuidGenerator = new UUIDGuidGenerator(),
     private getUserRepository: IGetUserRepository = new GetUserRepository(),
     private createRepository: ICreateUserRepository = new CreateUserRepository(),
   ) {
-    this.logger = this.logger.getChild('SignUpUseCase');
+    this.logger.getChild('SignUpUseCase');
   }
 
   async execute(input: SignUpUseCaseInput): Promise<SignUpUseCaseOutput> {
@@ -46,12 +47,12 @@ export class SignUpUseCase implements ISignUpUseCase {
     const email = input.email.toLowerCase();
 
     try {
-      const userFound = await this.getUserRepository.execute({
+      const user_found = await this.getUserRepository.execute({
         user_id: email,
       });
-      this.logger.debug('users repository response', userFound);
+      this.logger.debug('users repository response', user_found);
 
-      if (userFound) {
+      if (user_found) {
         throw new Error('USER_ALREADY_EXISTS');
       }
 
@@ -66,6 +67,7 @@ export class SignUpUseCase implements ISignUpUseCase {
         email_verified: false,
         name: input.name,
         role: input.role,
+        password: input.password,
         bio: input.bio,
         languages: input.languages,
         approved_at,

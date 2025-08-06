@@ -29,7 +29,7 @@ export class DeleteUserController implements IHttpController {
       logger,
     ),
   ) {
-    this.logger = this.logger.getChild('DeleteUserController');
+    this.logger.getChild('DeleteUserController');
   }
 
   public async handle(request: HttpRequest): Promise<HttpResponse | HttpError> {

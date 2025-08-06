@@ -16,6 +16,7 @@ export class FakeCreateUserRepository implements ICreateUserRepository {
       "email": "junio.souza_cruz@outlook.com",
       "email_verified": false,
       "role": UserRole.ADMIN,
+      "password": '123456789@',
       "bio": "The standard chunk of Lorem Ipsum used since the 1500s",
       "languages": [
         "pt-BR"
