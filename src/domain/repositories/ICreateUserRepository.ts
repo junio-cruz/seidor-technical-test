@@ -9,6 +9,7 @@ export type CreateUserRepositoryInput = {
   auth_token: string;
   languages: Language[];
   created_at: Date;
+  password: string;
   bio?: string;
   photo_url?: string;
   deleted_at?: Date;

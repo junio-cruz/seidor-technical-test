@@ -1,11 +1,11 @@
 import { UserRole } from '../../domain/entities/User';
 import { FakeLogger } from '../../infra/logger/FakeLogger';
-import {ListUsersUseCase, ListUsersUseCaseInput} from './ListUsersUseCase';
+import { ListUsersUseCase, ListUsersUseCaseInput } from './ListUsersUseCase';
 import { FakeListUsersRepository } from '../../infra/database/repositories/fakes/FakeListUsersRepository';
 
 let fakeListUsersRepository: FakeListUsersRepository;
 let sut: ListUsersUseCase;
-let fakeLogger: FakeLogger;
+let logger: FakeLogger;
 
 const data: ListUsersUseCaseInput = {
     filter: {
@@ -21,13 +21,13 @@ const data: ListUsersUseCaseInput = {
 describe('ListUsersUseCase', () => {
     beforeEach(() => {
         fakeListUsersRepository = new FakeListUsersRepository();
-        fakeLogger = new FakeLogger();
+        logger = new FakeLogger();
         // @ts-ignore
-        sut = new ListUsersUseCase(fakeLogger, fakeListUsersRepository);
+        sut = new ListUsersUseCase(logger, fakeListUsersRepository);
     });
 
     it('should call Logger.getChild', async () => {
-        expect(fakeLogger.getChild('')).toBeInstanceOf(FakeLogger);
+        expect(logger.getChild('')).toBeInstanceOf(FakeLogger);
     });
 
     it('should calls ListUsersRepository.execute with correct parameters', async () => {
@@ -39,7 +39,7 @@ describe('ListUsersUseCase', () => {
     });
 
     it('should calls Logger.debug at least two times', async () => {
-        const spyFakeLogger = jest.spyOn(fakeLogger, 'debug');
+        const spyFakeLogger = jest.spyOn(logger, 'debug');
 
         await sut.execute(data);
 

@@ -1,8 +1,9 @@
-import {Language, UserRole} from '../../domain/entities/User';
+import { UserRole } from '../../domain/entities/User';
 import { FakeLogger } from '../../infra/logger/FakeLogger';
-import {UpdateUserUseCase, UpdateUserUseCaseInput} from './UpdateUserUseCase';
+import { UpdateUserUseCase, UpdateUserUseCaseInput } from './UpdateUserUseCase';
 import { FakeUpdateUserRepository } from '../../infra/database/repositories/fakes/FakeUpdateUserRepository';
 
+let logger: FakeLogger;
 let fakeUpdateUserRepository: FakeUpdateUserRepository;
 let sut: UpdateUserUseCase;
 
@@ -17,18 +18,18 @@ const data: UpdateUserUseCaseInput = {
         ],
     }
 };
-let fakeLogger: FakeLogger;
 
-describe('UpdateUserUseCase', () => {
+describe('SignUpUseCase', () => {
     beforeEach(() => {
         fakeUpdateUserRepository = new FakeUpdateUserRepository();
-        fakeLogger = new FakeLogger();
+        logger = new FakeLogger();
         // @ts-ignore
-        sut = new UpdateUserUseCase(fakeLogger, fakeUpdateUserRepository);
+        sut = new UpdateUserUseCase(logger, fakeUpdateUserRepository);
     });
 
     it('should calls UpdateUserRepository.execute with correct parameters', async () => {
         const spyFakeUpdateUserRepository = jest.spyOn(fakeUpdateUserRepository, 'execute');
+        jest.spyOn(fakeUpdateUserRepository, 'execute').mockResolvedValue(null);
 
         await sut.execute(data);
 
@@ -44,7 +45,7 @@ describe('UpdateUserUseCase', () => {
     });
 
     it('should calls Logger.debug at least three times', async () => {
-        const spyFakeLogger = jest.spyOn(fakeLogger, 'debug');
+        const spyFakeLogger = jest.spyOn(logger, 'debug');
 
         await sut.execute(data);
 

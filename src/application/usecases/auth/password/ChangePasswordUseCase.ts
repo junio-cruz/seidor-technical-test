@@ -1,9 +1,9 @@
-import { ISP } from '../../../../infra/isp/ISP';
-import { IISP } from '../../../protocols/isp/IISP';
 import { User } from '../../../../domain/entities/User';
 import { ILogger } from '../../../protocols/logger/ILogger';
 import { IGetUserRepository } from '../../../../domain/repositories/IGetUserRepository';
 import { GetUserRepository } from '../../../../infra/database/repositories/GetUserRepository';
+import {IUpdateUserRepository} from "../../../../domain/repositories/IUpdateUserRepository";
+import {UpdateUserRepository} from "../../../../infra/database/repositories/UpdateUserRepository";
 
 export type ChangePasswordUseCaseInput = {
   auth_token: string;
@@ -22,9 +22,9 @@ export class ChangePasswordUseCase implements IChangePasswordUseCase {
   constructor(
     private readonly logger: ILogger,
     private getUserRepository: IGetUserRepository = new GetUserRepository(),
-    private identityServiceProvider: IISP = new ISP(),
+    private updateUserRepository: IUpdateUserRepository = new UpdateUserRepository(),
   ) {
-    this.logger = this.logger.getChild('ChangePasswordUseCase');
+    this.logger.getChild('ChangePasswordUseCase');
   }
 
   public async execute(
@@ -45,13 +45,17 @@ export class ChangePasswordUseCase implements IChangePasswordUseCase {
         throw new Error('USER_NOT_AUTHORIZED');
       }
 
-      await this.identityServiceProvider.setUserPassword({
-        password: input.new_password,
-        email: user.email,
+      const response = await this.updateUserRepository.execute({
+        user_id: input.auth_token,
+        to_update: { password: input.new_password }
       });
-      this.logger.debug('identityServiceProvider setUserPassword');
+      this.logger.debug('update user repository response', response);
 
-      return user;
+      if (!response) {
+        throw new Error('USER_NOT_FOUND');
+      }
+
+      return response;
     } catch (error) {
       this.logger.error('execute error', error);
       throw error;

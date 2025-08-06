@@ -13,6 +13,7 @@ export type User = {
   role: UserRole;
   languages: Language[];
   created_at: Date;
+  password: string;
   bio?: string;
   photo_url?: string;
   auth_token?: string;
@@ -31,6 +32,7 @@ export const userResolver = (user: User): User => {
     created_at: user.created_at,
     bio: user.bio || undefined,
     photo_url: user.photo_url || undefined,
+    password: user.password,
     deleted_at: user.deleted_at || undefined,
     approved_at: user.approved_at,
   };

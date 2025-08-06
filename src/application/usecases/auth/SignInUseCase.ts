@@ -23,7 +23,7 @@ export class SignInUserUseCase implements ISignInUserUseCase {
     private readonly identityServiceProvider: IISP = new ISP(),
     private getUserRepository: IGetUserRepository = new GetUserRepository(),
   ) {
-    this.logger = this.logger.getChild('SignInUserUseCase');
+    this.logger.getChild('SignInUserUseCase');
   }
 
   public async execute(

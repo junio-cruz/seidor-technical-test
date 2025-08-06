@@ -19,6 +19,7 @@ export class FakeListUsersRepository implements IListUsersRepository {
           "email": "junio.souza_cruz@outlook.com",
           "email_verified": true,
           "role": UserRole.ADMIN,
+          "password": "123456789",
           "bio": "The standard chunk of Lorem Ipsum used since the 1500s",
           "languages": [
             "pt-BR"
@@ -33,6 +34,7 @@ export class FakeListUsersRepository implements IListUsersRepository {
           "email": "junio.dsasdad@outlook.com",
           "email_verified": false,
           "name": "Casdada Cruz",
+          "password": "123456789",
           "role": UserRole.PUBLIC,
           "bio": "The standard chunk of Lorem Ipsum used since the 1500s",
           "languages": [

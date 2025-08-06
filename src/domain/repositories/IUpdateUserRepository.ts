@@ -8,6 +8,7 @@ export type UpdateUserRepositoryInput = {
     role?: UserRole;
     languages?: Language[];
     photo_url?: string;
+    password?: string;
     email_verified?: boolean;
     deleted_at?: Date;
     approved_at?: Date;

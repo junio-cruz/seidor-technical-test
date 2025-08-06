@@ -2,10 +2,10 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { FakeLogger } from '../../infra/logger/FakeLogger';
 import { GetUserUseCaseInput, GetUserUseCase } from './GetUserUseCase';
-import {FakeGetUserRepository} from '../../infra/database/repositories/fakes/FakeGetUserRepository';
+import { FakeGetUserRepository } from '../../infra/database/repositories/fakes/FakeGetUserRepository';
 import { FakeUpdateUserRepository } from '../../infra/database/repositories/fakes/FakeUpdateUserRepository';
 
-let fakeLogger: FakeLogger;
+let logger : FakeLogger;
 let fakeGetUserRepository: FakeUpdateUserRepository;
 let sut: GetUserUseCase;
 
@@ -15,14 +15,14 @@ const data: GetUserUseCaseInput = {
 
 describe('GetUserUseCase', () => {
     beforeEach(() => {
-        fakeLogger = new FakeLogger();
+        logger = new FakeLogger();
         fakeGetUserRepository = new FakeGetUserRepository();
         // @ts-ignore
-        sut = new GetUserUseCase(fakeLogger, fakeGetUserRepository);
+        sut = new GetUserUseCase(logger, fakeGetUserRepository);
     });
 
     it('should call Logger.getChild', async () => {
-        expect(fakeLogger.getChild('')).toBeInstanceOf(FakeLogger);
+        expect(logger.getChild('')).toBeInstanceOf(FakeLogger);
     });
 
     it('should calls GetUserRepository.execute with correct parameters', async () => {
@@ -39,7 +39,7 @@ describe('GetUserUseCase', () => {
     });
 
     it('should calls Logger.debug at least three times', async () => {
-        const spyFakeLogger = jest.spyOn(fakeLogger, 'debug');
+        const spyFakeLogger = jest.spyOn(logger, 'debug');
 
         await sut.execute(data);
 

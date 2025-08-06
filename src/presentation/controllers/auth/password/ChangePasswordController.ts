@@ -28,7 +28,7 @@ export class ChangePasswordController implements IHttpController {
       logger,
     ),
   ) {
-    this.logger = this.logger.getChild('ChangePasswordController');
+    this.logger.getChild('ChangePasswordController');
   }
 
   public async handle(request: HttpRequest): Promise<HttpResponse | HttpError> {
