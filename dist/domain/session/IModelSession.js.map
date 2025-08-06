@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/domain/session/IModelSession.ts", "sentry-debug-id-stub:_sentry-debug-id-injection-stub?sentry-module-id=c8b3b56e-9516-4b26-a322-447f18df03c7"],
+  "sourcesContent": ["\n              import \"_sentry-debug-id-injection-stub\";\n              import * as OriginalModule from \"./src/domain/session/IModelSession.ts\";\n              export default OriginalModule.default;\n              export * from \"./src/domain/session/IModelSession.ts\";", ";!function(){try{var e=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]=\"34ef1256-c4bb-481e-b847-025f11c3f3af\",e._sentryDebugIdIdentifier=\"sentry-dbid-34ef1256-c4bb-481e-b847-025f11c3f3af\")}catch(e){}}();"],
+  "mappings": "4ZAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,aAAAE,IAAA,eAAAC,EAAAH,ICAE,UAAU,CAAC,GAAG,CAAC,IAAI,EAAe,OAAO,OAApB,IAA2B,OAAoB,OAAO,OAApB,IAA2B,OAAoB,OAAO,KAApB,IAAyB,KAAK,CAAC,EAAEI,EAAG,IAAI,QAAO,MAAMA,IAAI,EAAE,gBAAgB,EAAE,iBAAiB,CAAC,EAAE,EAAE,gBAAgBA,CAAC,EAAE,uCAAuC,EAAE,yBAAyB,mDAAmD,MAAS,CAAC,CAAC,GAAE,EDGrU,IAAOC,EAAuB",
+  "names": ["IModelSession_exports", "__export", "IModelSession_default", "__toCommonJS", "n", "IModelSession_default"]
+}
