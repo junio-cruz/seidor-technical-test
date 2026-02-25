@@ -1,6 +1,6 @@
-ARG APP_VERSION=0.1.1-alpha.1
+ARG APP_VERSION=0.1.1-alpha.2
 FROM node:18-alpine
-ARG APP_VERSION=0.1.1-alpha.1
+ARG APP_VERSION=0.1.1-alpha.2
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
