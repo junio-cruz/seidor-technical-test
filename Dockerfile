@@ -1,2 +1,9 @@
 ARG APP_VERSION=0.1.1-alpha.1
-FROM node:18-alpine ARG APP_VERSION=0.1.0 WORKDIR /app COPY package*.json ./ RUN npm install COPY . . EXPOSE 3000 CMD ["npm", "start"]
+FROM node:18-alpine
+ARG APP_VERSION=0.1.0
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
